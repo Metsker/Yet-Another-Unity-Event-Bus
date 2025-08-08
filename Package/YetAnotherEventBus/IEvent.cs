@@ -1,6 +1,7 @@
-﻿namespace _Project._Scripts.Core.Player.Events
+namespace YetAnotherEventBus
 {
     public interface IEvent
     {
     }
 }
+
