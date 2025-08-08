@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Project._Scripts.Core.Player.Events;
 using UnityEngine;
 
 namespace YetAnotherEventBus
@@ -26,7 +25,16 @@ namespace YetAnotherEventBus
         public static void Deregister<TEvent>(Action<TEvent> handler) where TEvent : struct, IEvent
         {
             if (_handlers.TryGetValue(typeof(TEvent), out List<Delegate> handlers))
-                handlers.Remove(handler);
+            {
+                if (handlers.Remove(handler))
+                {
+                    // Free the key references for GC collection
+                    if (handlers.Count == 0)
+                    {
+                        _handlers.Remove(typeof(TEvent));
+                    }
+                }
+            }
         }
 
         public static void Raise<TEvent>(TEvent @event) where TEvent : struct, IEvent
@@ -39,3 +47,4 @@ namespace YetAnotherEventBus
         }
     }
 }
+
