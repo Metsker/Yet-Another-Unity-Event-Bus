@@ -24,14 +24,16 @@ namespace YetAnotherEventBus
 
         public static void Deregister<TEvent>(Action<TEvent> handler) where TEvent : struct, IEvent
         {
-            if (_handlers.TryGetValue(typeof(TEvent), out List<Delegate> handlers))
+            Type eventType = typeof(TEvent);
+            
+            if (_handlers.TryGetValue(eventType, out List<Delegate> handlers))
             {
                 if (handlers.Remove(handler))
                 {
                     // Free the key references for GC collection
                     if (handlers.Count == 0)
                     {
-                        _handlers.Remove(typeof(TEvent));
+                        _handlers.Remove(eventType);
                     }
                 }
             }
@@ -47,4 +49,5 @@ namespace YetAnotherEventBus
         }
     }
 }
+
 
