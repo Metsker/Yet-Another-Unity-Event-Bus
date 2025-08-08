@@ -1,0 +1,10 @@
+{
+  "name": "com.metsker.yet-another-event-bus",
+  "version": "1.0.0",
+  "displayName": "Yet Another Event Bus",
+  "description": "Simple generic event bus with little to no runtime overhead",
+  "author": {
+    "name": "Metsker",
+    "url": "https://github.com/Metsker"
+  }
+}
